@@ -2,8 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { getBlogById } from "../api/blog.api";
 import type { Blog } from "../types";
-import { Skeleton } from "../components/ui/skeleton";
-import { Button } from "../components/ui/button";
 import { Share2, ThumbsUp, MessageSquare } from "lucide-react";
 
 export default function BlogDetail() {
@@ -17,9 +15,9 @@ export default function BlogDetail() {
 
   if (isLoading) return (
     <div className="space-y-6">
-      <Skeleton className="h-[300px] w-full rounded-xl" />
-      <Skeleton className="h-10 w-3/4" />
-      <Skeleton className="h-24 w-full" />
+      <div className="h-[300px] w-full rounded-xl bg-muted animate-pulse" />
+      <div className="h-10 w-3/4 bg-muted animate-pulse rounded" />
+      <div className="h-24 w-full bg-muted animate-pulse rounded" />
     </div>
   );
 
@@ -47,9 +45,9 @@ export default function BlogDetail() {
           {data.title}
         </h1>
 
-        <Button className="gap-2 rounded-md h-9 px-4 text-xs font-semibold uppercase tracking-wide">
+        <button className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-xs font-semibold uppercase tracking-wide text-primary-foreground hover:bg-primary/90 transition-colors h-9">
             <Share2 className="w-4 h-4" /> Share Article
-        </Button>
+        </button>
       </div>
 
       {/* 3. The Metadata Box (Grey Box in UI) */}
@@ -69,7 +67,7 @@ export default function BlogDetail() {
       </div>
 
       {/* 4. Content */}
-      <article className="prose prose-slate dark:prose-invert max-w-none prose-headings:font-bold prose-p:text-muted-foreground prose-p:leading-7">
+      <article className="max-w-none text-muted-foreground leading-7">
         {/* Note: In a real app, use a markdown parser if content is markdown, or dangerouslySetInnerHTML if HTML */}
         <p className="whitespace-pre-wrap">{data.content}</p> 
 

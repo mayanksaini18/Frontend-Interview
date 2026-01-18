@@ -1,3 +1,4 @@
+
 import { Outlet, useParams } from "react-router-dom";
 import BlogList from "./BlogList";
 import BlogDetail from "./BlogDetail";

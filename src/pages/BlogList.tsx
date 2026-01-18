@@ -3,7 +3,6 @@ import { getBlogs } from '../api/blog.api';
 import { Link, useMatch } from 'react-router-dom';
 import type { Blog } from '../types';
 import { cn } from "../lib/utils";
-import { Badge } from "../components/ui/badge";
 
 export default function BlogList() {
   // useMatch is required here because BlogList is outside the <Routes>
@@ -16,7 +15,16 @@ export default function BlogList() {
   });
 
   if (isLoading) {
-    return <div className="space-y-4">{/* Add simple list skeletons here */}</div>;
+    return (
+      <div className="space-y-4">
+        {[1, 2, 3, 4, 5].map((i) => (
+          <div key={i} className="p-4 rounded-lg border border-transparent animate-pulse">
+            <div className="h-4 bg-muted rounded w-3/4 mb-3"></div>
+            <div className="h-3 bg-muted rounded w-1/2"></div>
+          </div>
+        ))}
+      </div>
+    );
   }
 
   if (isError) return <div className="text-destructive">Failed to load list</div>;
@@ -39,9 +47,9 @@ export default function BlogList() {
               <div className="flex justify-between items-center mb-3">
                  <div className="flex gap-2">
                     {blog.category?.slice(0,1).map(c => (
-                        <Badge key={c} variant="secondary" className="text-[10px] font-bold uppercase tracking-wider text-primary bg-primary/10 hover:bg-primary/20 px-2 py-0.5 rounded-sm shadow-none">
+                        <span key={c} className="inline-flex items-center rounded-md bg-secondary px-2 py-1 text-xs font-medium text-secondary-foreground ring-1 ring-inset ring-gray-500/10">
                           {c}
-                        </Badge>
+                        </span>
                     ))}
                  </div>
                  <span className="text-[10px] text-muted-foreground">

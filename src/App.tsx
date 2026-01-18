@@ -13,7 +13,7 @@ function App() {
         <div className="flex items-center gap-2">
            <Link to="/" className="flex items-center gap-2 font-black text-xl tracking-tighter">
              <div className="bg-primary text-primary-foreground px-2 py-0.5 rounded text-lg">CA</div>
-             <span>MONK</span>
+             <span className='text-yellow-500'>MONK</span>
            </Link>
         </div>
         
