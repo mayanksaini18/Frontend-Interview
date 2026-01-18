@@ -1,27 +1,68 @@
+import { useQuery } from "@tanstack/react-query";
+import { getBlogs } from '../api/blog.api';
+import { Link, useMatch } from 'react-router-dom';
+import type { Blog } from '../types';
+import { cn } from "../lib/utils";
+import { Badge } from "../components/ui/badge";
 
-import {useQuery} from "@tanstack/react-query"
-import { getBlogs } from '../api/blog.api'
-import { Link } from 'react-router-dom'
+export default function BlogList() {
+  // useMatch is required here because BlogList is outside the <Routes>
+  const match = useMatch('/blogs/:id');
+  const id = match?.params.id;
 
-export default function Bloglist(){
-    const { data , isLoading ,isError} = useQuery({
-        queryKey : ['blogs'],
-        queryFn : getBlogs
-    })
-  if (isLoading) return <p>Loading...</p>
-  if (isError) return <p>Error...</p>
+  const { data, isLoading, isError } = useQuery<Blog[]>({
+    queryKey: ['blogs'],
+    queryFn: getBlogs
+  });
+
+  if (isLoading) {
+    return <div className="space-y-4">{/* Add simple list skeletons here */}</div>;
+  }
+
+  if (isError) return <div className="text-destructive">Failed to load list</div>;
 
   return (
-    <div>
-      {data.map((blog: any) => (
-        <div key={blog.id}>
-          <Link to={`/blogs/${blog.id}`}>
-            <h3>{blog.title}</h3>
-            <p>{blog.description}</p>
-          </Link>
-        </div>
-      ))}
-    </div>
-  )
-}
+    <div className="space-y-3">
+      {data?.map((blog) => {
+        const isActive = id === String(blog.id);
+        
+        return (
+          <Link to={`/blogs/${blog.id}`} key={blog.id} className="block group">
+            <div className={cn(
+              "p-4 rounded-lg transition-all duration-200 border border-transparent",
+              // Active State: White background, Shadow, Left Primary Border (Blue)
+              isActive 
+                ? "bg-card shadow-md border-l-4 border-l-primary border-y-border border-r-border" 
+                : "hover:bg-muted/50 border border-border/40"
+            )}>
+              {/* Top Row: Category & Date */}
+              <div className="flex justify-between items-center mb-3">
+                 <div className="flex gap-2">
+                    {blog.category?.slice(0,1).map(c => (
+                        <Badge key={c} variant="secondary" className="text-[10px] font-bold uppercase tracking-wider text-primary bg-primary/10 hover:bg-primary/20 px-2 py-0.5 rounded-sm shadow-none">
+                          {c}
+                        </Badge>
+                    ))}
+                 </div>
+                 <span className="text-[10px] text-muted-foreground">
+                    {new Date(blog.date).toLocaleDateString()}
+                 </span>
+              </div>
 
+              <h3 className={cn(
+                "font-bold text-sm leading-tight mb-2 group-hover:text-primary transition-colors",
+                isActive ? "text-primary" : "text-foreground"
+              )}>
+                {blog.title}
+              </h3>
+              
+              <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
+                {blog.description}
+              </p>
+            </div>
+          </Link>
+        )
+      })}
+    </div>
+  );
+}

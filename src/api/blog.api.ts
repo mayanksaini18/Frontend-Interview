@@ -1,4 +1,4 @@
-import { Blog, NewBlog } from '../types';
+import type { Blog, NewBlog } from '../types';
 
 const BASE_URL = 'http://localhost:3001';
 
