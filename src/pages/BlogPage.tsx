@@ -1,6 +1,6 @@
 
-import { Outlet, useParams } from "react-router-dom";
-import BlogList from "./BlogList";
+import { useParams } from "react-router-dom";
+import BlogList from "./Bloglist";
 import BlogDetail from "./BlogDetail";
 
 export default function BlogPage() {
