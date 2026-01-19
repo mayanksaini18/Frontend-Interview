@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Twitter, Linkedin, Instagram, Facebook } from 'lucide-react'; // Make sure you have lucide-react or use your own icons
+import { Twitter, Linkedin, Instagram } from 'lucide-react'; // Make sure you have lucide-react or use your own icons
 
 export default function Footer() {
   return (
