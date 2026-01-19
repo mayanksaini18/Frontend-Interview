@@ -1,7 +1,7 @@
 import { Route , Routes , Link } from 'react-router-dom';
 import BlogList from "./pages/Bloglist";
 import BlogDetail from "./pages/BlogDetail";
-import CreateBlog from "./pages/CreateBlog";
+import CreateBlog from "./pages/createBlog";
 import Footer from "./components/Footer";
 
 function App() {
