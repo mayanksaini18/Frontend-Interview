@@ -1,6 +1,6 @@
 
 import { useParams } from "react-router-dom";
-import BlogList from "./Bloglist";
+import BlogList from "./BlogList";
 import BlogDetail from "./BlogDetail";
 
 export default function BlogPage() {
